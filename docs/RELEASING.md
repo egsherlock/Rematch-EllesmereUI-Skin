@@ -60,8 +60,8 @@ git tag -a vX.Y.Z -m "X.Y.Z" && git push origin vX.Y.Z
 ```
 
 The workflow builds the zip, attaches it to the GitHub release, and uploads to
-CurseForge (the CurseForge project once its ID is in the `.toc`, key in the `CF_API_KEY` repo secret). Nothing else
-is needed. Wago stays commented in the `.toc` and the workflow until that project
+CurseForge (project 1702206, ID in the `.toc`, key in the `CF_API_KEY` repo
+secret). Nothing else is needed. Wago stays commented in the `.toc` and the workflow until that project
 exists.
 
 **Patch for fixes, minor for anything a user would call a feature.**

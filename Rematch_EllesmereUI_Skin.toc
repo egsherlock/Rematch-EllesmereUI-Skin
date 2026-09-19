@@ -24,8 +24,8 @@
 
 # The packager reads these to know where to upload; the matching API key
 # lives as a repo secret (CF_API_KEY) and is enabled in the release workflow.
-# Both stay commented until the CurseForge project exists.
-# ## X-Curse-Project-ID: 000000
+# Wago stays commented until that project exists.
+## X-Curse-Project-ID: 1702206
 # ## X-Wago-ID: 000000
 
 # Compat.lua first: it restores a global Rematch calls from its own handlers,
