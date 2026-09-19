@@ -1,0 +1,35 @@
+## Interface: 120100, 120007
+## Title: Rematch EllesmereUI Skin
+## Notes: Reskins Rematch to match EllesmereUI. Also restores the MouseIsOver API patch 12.1 removed, so Rematch's journal window is no longer blank.
+## Version: @project-version@
+## IconTexture: Interface\AddOns\Rematch\textures\icon
+## Category-enUS: Pet Battles
+## Category-deDE: Haustierkämpfe
+## Category-esES: Duelos de mascotas
+## Category-esMX: Duelos de mascotas
+## Category-frFR: Combats de mascottes
+## Category-itIT: Mostra allenatori di mascotte
+## Category-koKR: 애완동물 대전
+## Category-ptBR: Batalhas de mascotes
+## Category-ruRU: Битвы питомцев
+## Category-zhCN: 宠物对战
+## Category-zhTW: 寵物對戰
+## Dependencies: Rematch, EllesmereUI
+## OptionalDeps: EllesmereUIBlizzardSkin
+## SavedVariables: RematchEllesmereUISkinDB
+
+## X-Website: https://github.com/egsherlock/Rematch-EllesmereUI-Skin
+## X-License: GPL-3.0
+## X-Category: Pet Battles
+
+# The packager reads these to know where to upload; the matching API key
+# lives as a repo secret (CF_API_KEY) and is enabled in the release workflow.
+# Both stay commented until the CurseForge project exists.
+# ## X-Curse-Project-ID: 000000
+# ## X-Wago-ID: 000000
+
+# Compat.lua first: it restores a global Rematch calls from its own handlers,
+# and has no dependency on anything else in this addon.
+Compat.lua
+Backend.lua
+Rematch_EllesmereUI_Skin.lua

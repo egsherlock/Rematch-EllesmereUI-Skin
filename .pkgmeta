@@ -1,0 +1,20 @@
+# package-as sets the folder name INSIDE the release zip. It must match the
+# addon folder name WoW expects (and the .toc filename), not the repo name --
+# a zip that unpacks to "Rematch-EllesmereUI-Skin-main/" would not load.
+package-as: Rematch_EllesmereUI_Skin
+
+# Repo-only, not shipped to users.
+ignore:
+  - .github
+  - docs
+
+# Nominates the changelog for the GitHub release page and the CurseForge upload.
+# Without this the packager writes its own from the commits between tags, which
+# is the wrong voice and the wrong audience entirely.
+#
+# CHANGELOG.md is NOT in the ignore list above, so it also ships inside the addon
+# folder. That is deliberate: it is written for players, so it is worth having
+# somewhere a player can find it.
+manual-changelog:
+  filename: CHANGELOG.md
+  markup-type: markdown
