@@ -10,11 +10,16 @@ There is nothing to configure. The skin reads your EllesmereUI profile and match
 
 Both of Rematch's homes are covered: the standalone window, and the Pet Journal tab inside the Collections window, where Rematch's own tabs are drawn to match the Collections tabs beside them.
 
+## Goes well with
+
+- **[MountsJournal EllesmereUI Skin](https://www.curseforge.com/projects/1633540)** does the same for MountsJournal's mount tab, built on the same foundation as this one, so the two Collections tabs match each other as well as the rest of your UI.
+- **[Postbox](https://www.curseforge.com/projects/1639171)** is a full mailbox replacement: clear a full inbox in one click or just the mail you choose, complete recipients as you type, and see what is waiting without visiting a mailbox. It wears your EllesmereUI or ElvUI look.
+
 ## The 12.1 blank window
 
 Patch 12.1 removed a small function Rematch relies on, and until Rematch is updated its window opens empty. This skin puts that function back, the same fix the standalone [FixRematch](https://www.curseforge.com/wow/addons/fixrematch) addon provides, so you don't need both. If you already have FixRematch installed, the two get along fine. Once Rematch or the game supplies the function again, the fix switches itself off.
 
-There is a second cause, which FixRematch does not cover: inside dungeons, delves and other instanced content the game hides creature names from addons, and Rematch stops dead on the first one it tries to show, blanking the window the same way. This skin guards that too. While you are in an instance those names read "Unknown (npc id …)", and they come back normally once you leave.
+There is a second cause, which FixRematch does not cover. Inside a dungeon, delve, scenario or similar, the game refuses to tell addons the names of creatures. Rematch hit that refusal and gave up on drawing its whole window, so you got a blank panel. With this skin the window opens and works normally in instances. The one thing you'll notice is that your loaded target, and the target shown on any team, reads "Unknown (npc id 12345)" instead of the creature's name. As soon as you leave the instance the names come back on their own. Outside instances nothing changes at all.
 
 ## What you'll notice
 
