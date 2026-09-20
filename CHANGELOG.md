@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.0.1
+
+- **Fixed: the Rematch window opened blank inside dungeons, delves and other
+  instanced content**, with an error mentioning a "secret string". Inside
+  instances the game no longer lets addons read creature names, and Rematch
+  gave up on the whole window the moment it hit one. Now the window opens as
+  normal; the only difference is that while you are inside an instance, the
+  names of your loaded target and of any team's target show as "Unknown
+  (npc id …)". Step outside and they read normally again. Nothing else
+  changes, and the open world is unaffected.
+- `/rmeuiskin` now also reports how many names the game hid this session, so
+  a report from inside an instance explains itself.
+
 ## 1.0.0
 
 First release.

@@ -1,6 +1,6 @@
 ## Interface: 120100, 120007
 ## Title: Rematch EllesmereUI Skin
-## Notes: Reskins Rematch to match EllesmereUI. Also restores the MouseIsOver API patch 12.1 removed, so Rematch's journal window is no longer blank.
+## Notes: Reskins Rematch to match EllesmereUI. Also works around the two patch 12.1 problems that leave Rematch's journal window blank: the removed MouseIsOver API, and creature names the game hides inside instances.
 ## Version: @project-version@
 ## IconTexture: Interface\AddOns\Rematch\textures\icon
 ## Category-enUS: Pet Battles
@@ -28,8 +28,8 @@
 ## X-Curse-Project-ID: 1702206
 # ## X-Wago-ID: 000000
 
-# Compat.lua first: it restores a global Rematch calls from its own handlers,
-# and has no dependency on anything else in this addon.
+# Compat.lua first: it restores a global Rematch calls from its own handlers
+# and guards Rematch's NPC name lookup, and depends on nothing else here.
 Compat.lua
 Backend.lua
 Rematch_EllesmereUI_Skin.lua

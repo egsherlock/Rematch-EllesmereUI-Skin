@@ -14,6 +14,8 @@ Both of Rematch's homes are covered: the standalone window, and the Pet Journal 
 
 Patch 12.1 removed a small function Rematch relies on, and until Rematch is updated its window opens empty. This skin puts that function back, the same fix the standalone [FixRematch](https://www.curseforge.com/wow/addons/fixrematch) addon provides, so you don't need both. If you already have FixRematch installed, the two get along fine. Once Rematch or the game supplies the function again, the fix switches itself off.
 
+There is a second cause, which FixRematch does not cover: inside dungeons, delves and other instanced content the game hides creature names from addons, and Rematch stops dead on the first one it tries to show, blanking the window the same way. This skin guards that too. While you are in an instance those names read "Unknown (npc id …)", and they come back normally once you leave.
+
 ## What you'll notice
 
 - The whole Rematch window in your EllesmereUI colours and transparency: title bar, tabs, panels, lists, search boxes, buttons, cards, menus and tooltips.
@@ -36,7 +38,7 @@ Most people will never need these. The defaults follow EllesmereUI.
 
 ## If something looks wrong
 
-Type `/rmeuiskin` in chat. It prints what the skin did, which versions of Rematch and EllesmereUI you have, and whether the 12.1 fix was needed. If you report a problem, please paste that output along with a screenshot.
+Type `/rmeuiskin` in chat. It prints what the skin did, which versions of Rematch and EllesmereUI you have, whether the 12.1 fix was needed, and how many creature names the game hid this session. If you report a problem, please paste that output along with a screenshot.
 
 The skin is built in sections, so if a future Rematch update moves something, only that one piece loses its skin rather than the whole window.
 
@@ -46,6 +48,6 @@ Written for Rematch 5.3.1 and EllesmereUI 9.1.8. Works on EllesmereUI 8.6.6 and 
 
 ## Credits and licence
 
-GPLv3. Built on the same foundation as the author's [MountsJournal EllesmereUI Skin](https://www.curseforge.com/projects/1633540). The 12.1 fix is the one shipped by [FixRematch](https://www.curseforge.com/wow/addons/fixrematch) by unieagle (MIT), included with thanks. Thanks also to Gello for Rematch, to EllesmereGaming for EllesmereUI, and to Gello and nihilistzsche, whose old Rematch ElvUI Skin showed what a Rematch skin needs to cover.
+GPLv3. Built on the same foundation as the author's [MountsJournal EllesmereUI Skin](https://www.curseforge.com/projects/1633540). The MouseIsOver fix is the same one-line function [FixRematch](https://www.curseforge.com/wow/addons/fixrematch) by unieagle (MIT) ships: both put back Blizzard's own removed line, and FixRematch found it first. Thanks also to Gello for Rematch, to EllesmereGaming for EllesmereUI, and to Gello and nihilistzsche, whose old Rematch ElvUI Skin showed what a Rematch skin needs to cover.
 
 Unofficial, and not affiliated with any of those projects. Source and issues: [GitHub](https://github.com/egsherlock/Rematch-EllesmereUI-Skin).

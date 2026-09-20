@@ -27,6 +27,13 @@ so you don't need a second addon for it. If you already have FixRematch
 installed the two get along fine, and once Rematch or the game supplies the
 API again the fix steps aside on its own.
 
+There is a second cause that FixRematch does not cover: inside dungeons,
+delves and other instanced content the game hides creature names from addons,
+and Rematch stops dead on the first one it tries to show, which blanks the
+window in the same way. This skin guards that lookup too. While you are inside
+an instance those names read "Unknown (npc id …)", and they come back normally
+once you leave. `/rmeuiskin` reports how many names were hidden this session.
+
 ## Installing
 
 Drop the folder into `World of Warcraft/_retail_/Interface/AddOns/`, or grab it
@@ -112,9 +119,11 @@ always drawn by this addon itself, so the look is identical either way.
 
 GPLv3. The skinning facade and most of the helpers come from
 [MountsJournal EllesmereUI Skin](https://github.com/egsherlock/MountsJournal-EllesmereUI-Skin),
-the same author's earlier skin. The 12.1 compatibility fix is the one shipped by
-[FixRematch](https://www.curseforge.com/wow/addons/fixrematch) (unieagle, MIT),
-folded in with thanks. The old
+the same author's earlier skin. The MouseIsOver fix is the same one-line
+function the standalone
+[FixRematch](https://www.curseforge.com/wow/addons/fixrematch) (unieagle, MIT)
+ships: both put back Blizzard's own removed line, and FixRematch found it
+first. The old
 [Rematch ElvUI Skin](https://github.com/nihilistzsche/RematchElvUISkin) by
 Gello and nihilistzsche was the checklist of what a Rematch skin has to reach.
 Thanks to Gello for Rematch and to EllesmereGaming for EllesmereUI.

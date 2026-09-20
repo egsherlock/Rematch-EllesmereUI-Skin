@@ -413,6 +413,19 @@ local function slashHandler(msg)
 				or (have and "(supplied by the client or another addon)" or ""))
 	end
 
+	-- The second 12.1 shim: inside instances the client hides NPC names from
+	-- addons and Rematch's name lookup throws, blanking the window. Report
+	-- whether the guard is in place and how often it has had to step in, so
+	-- "my target says Unknown" and "blank window in a dungeon" are both
+	-- answered by the same line.
+	do
+		local wrapped = ns.CompatWrappedGetNpcName
+		local n = ns.CompatHiddenNames or 0
+		print("  NPC names:", wrapped and "guarded" or "not guarded",
+			n > 0 and ("(%d hidden by the game this session)"):format(n)
+				or "(none hidden this session)")
+	end
+
 	if not (haveEUI and haveRematch) then
 		print("  |cffff5555Skin is inert. A precondition was missing at load.|r")
 		print("  EllesmereUI loaded:", yn(haveEUI))
