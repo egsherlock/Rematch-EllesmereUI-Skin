@@ -17,6 +17,38 @@ from your active profile, read fresh each time. Change something in EllesmereUI
 and Rematch changes with it. Both of Rematch's homes are covered: its own
 standalone window, and the Pet Journal seat inside the Collections window.
 
+## Screenshots
+
+<table>
+  <tr>
+    <td width="50%" valign="top"><img src="docs/teams.png" alt="Teams panel"></td>
+    <td width="50%" valign="top"><img src="docs/targets.png" alt="Targets panel"></td>
+  </tr>
+  <tr>
+    <td valign="top">Teams in the Pet Journal on a Dark Mode profile, colour and transparency both from it. Rematch's own tabs sit level with the Collections tabs beside them</td>
+    <td valign="top">Targets, grouped by expansion, each trainer with the pets they bring</td>
+  </tr>
+  <tr>
+    <td valign="top"><img src="docs/queue.png" alt="Leveling queue"></td>
+    <td valign="top"><img src="docs/options.png" alt="Options panel"></td>
+  </tr>
+  <tr>
+    <td valign="top">The leveling queue, with each pet's level in a badge on the corner of its icon</td>
+    <td valign="top">Rematch's own options, skinned to match, with checkmarks in your accent colour</td>
+  </tr>
+</table>
+
+## Goes well with
+
+- **[MountsJournal EllesmereUI Skin](https://github.com/egsherlock/MountsJournal-EllesmereUI-Skin)**
+  is this same skin for MountsJournal, the mount tab one over, built on the
+  same foundation so the two Collections tabs match each other as well as
+  the rest of your UI.
+- Or try my other addon, **[Postbox](https://github.com/egsherlock/Postbox)**,
+  a full mailbox replacement: clear a full inbox in one click or just the
+  mail you choose, complete recipients as you type, and see what is waiting
+  without visiting a mailbox. It wears your EllesmereUI or ElvUI look.
+
 ## The 12.1 blank window
 
 Patch 12.1 removed a small API Rematch relies on, and Rematch's author has not
@@ -53,7 +85,7 @@ atrocityUI or AES work simply because they write these same values.
 | Window style | `EllesmereUI.GetBlizzWindowStyle("collections")` |
 
 These get re-read every time something is painted, never cached. Switch profile,
-reopen Rematch, done.
+reopen Rematch, done. There's nothing to import or keep in sync.
 
 ## Options
 
@@ -104,7 +136,8 @@ whole window.
 mode, biggest first. `/rmeuiskin tabs` compares Rematch's panel tabs against
 Collections' own row beside them. Both print what the frames really carry,
 texture, size, colour and alpha, which is usually the fastest way to tell a bug
-here apart from a Blizzard or EllesmereUI change.
+here apart from a Blizzard or EllesmereUI change. If something looks like it
+moved, run `tabs` before and after and compare the two.
 
 ## Compatibility
 
@@ -113,7 +146,9 @@ and newer: on 8.6.8+ with the Blizzard Skin child addon running it registers
 through the official skinning API and shows up under Blizzard Window Skins >
 Third-Party Addons; without it the same primitives are rebuilt from the public
 helpers EllesmereUI exports. The window shell, scroll bars and checkboxes are
-always drawn by this addon itself, so the look is identical either way.
+always drawn by this addon itself, so the look is identical either way. You
+don't need to do anything, and `/rmeuiskin` will tell you which backend is
+running.
 
 ## Licence
 
