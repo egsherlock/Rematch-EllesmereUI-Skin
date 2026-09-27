@@ -2,8 +2,13 @@
 
 ## 1.1.0
 
-- Adds support for EllesmereUI's standalone modules, such as Standalone Raid &
-  Party Frames, as well as the full suite.
+- **Now works with EllesmereUI's standalone modules**, not just the full
+  suite: Action Bars, AuraBuff Reminders, Bags, Chat, Cooldown Manager, Damage
+  Meters, Friends List, Minimap, Nameplates, Raid & Party Frames, Resource Bars
+  and Unit Frames. If you run the full suite, nothing changes.
+- **The 12.1 blank-window fixes no longer need EllesmereUI.** Without it, this
+  addon still loads and keeps Rematch's window from opening blank. The skin
+  itself stays off until there is an EllesmereUI to match.
 
 ## 1.0.1
 
