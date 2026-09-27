@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.1.0
+
+- **Now works with EllesmereUI's standalone modules**, such as "EllesmereUI:
+  Standalone Raid & Party Frames", not just the full EllesmereUI suite. Until
+  now the skin refused to load unless the full suite was installed. It now
+  uses whichever EllesmereUI you run and follows its colours, transparency,
+  accent and font exactly as before. If you run the full suite, nothing
+  changes.
+- A standalone module doesn't include EllesmereUI's window border setting, so
+  with one, "Follow EllesmereUI" means no border around the Rematch window.
+  Pick a border in this addon's options if you'd like one.
+- **The 12.1 blank-window fixes no longer need EllesmereUI.** Without it, this
+  addon now loads anyway and keeps Rematch's window from opening blank. The
+  skin itself stays off until there is an EllesmereUI to match.
+- `/rmeuiskin` now says which EllesmereUI it found, naming the standalone
+  module if that's what you run.
+
 ## 1.0.1
 
 - **Fixed: the Rematch window opened blank inside dungeons, delves and other

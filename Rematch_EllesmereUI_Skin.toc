@@ -14,8 +14,8 @@
 ## Category-ruRU: Битвы питомцев
 ## Category-zhCN: 宠物对战
 ## Category-zhTW: 寵物對戰
-## Dependencies: Rematch, EllesmereUI
-## OptionalDeps: EllesmereUIBlizzardSkin
+## Dependencies: Rematch
+## OptionalDeps: EllesmereUI, EllesmereUIBlizzardSkin
 ## SavedVariables: RematchEllesmereUISkinDB
 
 ## X-Website: https://github.com/egsherlock/Rematch-EllesmereUI-Skin
@@ -27,6 +27,11 @@
 # Wago stays commented until that project exists.
 ## X-Curse-Project-ID: 1702206
 # ## X-Wago-ID: 000000
+
+# EllesmereUI is optional here only because its standalone modules (one
+# EUIStandalone<Module> folder each) have no "EllesmereUI" addon to name.
+# Listing it keeps the suite loading before us exactly as before; Backend.lua
+# finds whichever EllesmereUI is running at login, suite first.
 
 # Compat.lua first: it restores a global Rematch calls from its own handlers
 # and guards Rematch's NPC name lookup, and depends on nothing else here.

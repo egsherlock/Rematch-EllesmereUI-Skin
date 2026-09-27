@@ -8,8 +8,10 @@ blank Rematch window in patch 12.1 while it's at it.
 
 </div>
 
-You need both addons installed. This one contains no part of either, and if
-you're not running both it quietly does nothing.
+You need Rematch, and EllesmereUI: either the full suite or any one of its
+standalone modules, such as Standalone Raid & Party Frames. This addon contains
+no part of either. Without EllesmereUI the skin stays off, but the 12.1
+blank-window fixes below still work.
 
 The whole idea is that it follows *your* EllesmereUI setup rather than imposing a
 look of its own. Window colour, transparency, accent, font and border all come
@@ -87,6 +89,10 @@ atrocityUI or AES work simply because they write these same values.
 These get re-read every time something is painted, never cached. Switch profile,
 reopen Rematch, done. There's nothing to import or keep in sync.
 
+On a standalone module the same values come from that module's own copy of
+EllesmereUI. It has no window border or window style settings, so there
+"Follow EllesmereUI" means no border, and the window style is the default one.
+
 ## Options
 
 **Game Menu > Options > AddOns > Rematch EllesmereUI Skin**
@@ -149,6 +155,12 @@ helpers EllesmereUI exports. The window shell, scroll bars and checkboxes are
 always drawn by this addon itself, so the look is identical either way. You
 don't need to do anything, and `/rmeuiskin` will tell you which backend is
 running.
+
+EllesmereUI's standalone modules (Standalone Raid & Party Frames and its
+siblings) work too. Each one carries its own renamed copy of EllesmereUI, and
+the skin uses whichever EllesmereUI is running, the full suite first. None of
+them include the Blizzard Skin module, so they always take the second route,
+which looks the same. Checked against all twelve standalone modules at 9.3.
 
 ## Licence
 

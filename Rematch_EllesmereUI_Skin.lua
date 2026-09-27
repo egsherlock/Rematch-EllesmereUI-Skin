@@ -48,7 +48,9 @@ local hooksecurefunc, CreateFrame = hooksecurefunc, CreateFrame
 --
 -- Note what is NOT a precondition: EllesmereUI.RegisterSkin. Backend.lua
 -- supplies the facade whether or not the API is live. See its header.
-local haveEUI = EllesmereUI ~= nil
+-- Nor is EllesmereUI itself, at load: the suite or any one standalone module
+-- will do, so Backend.lua finds it at PLAYER_LOGIN (ns.Host()) and simply
+-- never calls us back if there is none. See its WHICH ELLESMEREUI.
 local haveRematch = RematchFrame ~= nil
 
 -- EllesmereUI's skin facade, captured when our callback fires. Rematch builds
@@ -396,8 +398,12 @@ local function slashHandler(msg)
 				local ok, v = pcall(getMeta, name, "Version")
 				return (ok and v) or "?"
 			end
-			print(("  versions: skin %s, Rematch %s, EllesmereUI %s"):format(
-				ver(ADDON_NAME), ver("Rematch"), ver("EllesmereUI")))
+			-- A standalone module carries its own copy of EllesmereUI, so name
+			-- the folder: that is the version its framework is.
+			local host = ns.HostFolder() or "EllesmereUI"
+			print(("  versions: skin %s, Rematch %s, EllesmereUI %s%s"):format(
+				ver(ADDON_NAME), ver("Rematch"), ver(host),
+				ns.HostIsStandalone() and (" (standalone: " .. host .. ")") or ""))
 		end
 	end
 
@@ -426,9 +432,11 @@ local function slashHandler(msg)
 				or "(none hidden this session)")
 	end
 
+	local haveEUI = ns.Host() ~= nil
 	if not (haveEUI and haveRematch) then
-		print("  |cffff5555Skin is inert. A precondition was missing at load.|r")
-		print("  EllesmereUI loaded:", yn(haveEUI))
+		print("  |cffff5555Skin is inert. A precondition was missing.|r")
+		print("  EllesmereUI running:", yn(haveEUI),
+			haveEUI and "" or "(neither the suite nor a standalone module)")
 		print("  Rematch loaded:", yn(haveRematch))
 		return
 	end
@@ -436,6 +444,8 @@ local function slashHandler(msg)
 	local backendNote
 	if ns.GetBackend() == "api" then
 		backendNote = "(EllesmereUI's skinning API; shell, scroll bars and checkboxes drawn locally)"
+	elseif ns.HostIsStandalone() then
+		backendNote = "(standalone EllesmereUI, which has no Blizz UI Enhanced; using public helpers)"
 	elseif ns.HasAPI() then
 		backendNote = "(API stub present but EllesmereUIBlizzardSkin is not running; using public helpers)"
 	else
@@ -496,11 +506,12 @@ SLASH_RMEUISKIN2 = "/rematchskin"
 SlashCmdList.RMEUISKIN = slashHandler
 
 
--- Registering a skin is free, so this is the only gate we need. Hard TOC
--- dependencies cover the case where either addon is absent; the checks keep us
--- inert regardless, but the diagnostic above is already registered, so an
--- inert addon can still say so.
-if not (haveEUI and haveRematch) then return end
+-- Registering a skin is free, so this is the only gate we need. Rematch is a
+-- hard TOC dependency. EllesmereUI is not, because a standalone module has no
+-- "EllesmereUI" addon to depend on: without one, Backend.lua never calls the
+-- callback below, which is gate enough. The diagnostic above is already
+-- registered either way, so an inert addon can still say so.
+if not haveRematch then return end
 
 
 local function resolveDB()
@@ -540,10 +551,12 @@ local borderHosts = setmetatable({}, {__mode = "k"})
 	  EllesmereUIDB.windowBorderSize      step 1-4; 0 means no border at all
 
 	Read-only, and re-read on every call. Size 0 is a real answer, not a
-	missing one: plenty of setups run with no window border.
+	missing one: plenty of setups run with no window border. A standalone
+	module's settings table (ns.HostDB) never carries these keys, so there
+	"auto" reads as no border, which is what that host draws on its windows.
 ------------------------------------------------------------------------------]]
 function hostBorder()
-	local edb = EllesmereUIDB
+	local edb = ns.HostDB()
 	if type(edb) ~= "table" then return "none", 2 end
 	local size = tonumber(edb.windowBorderSize)
 	local tex = edb.windowBorderTexture
@@ -568,22 +581,23 @@ local function applyBorder(frame)
 		borderHosts[frame] = host
 	end
 
-	if not EllesmereUI.ApplyBorderStyle then return end
+	local EUI = ns.Host()
+	if not (EUI and EUI.ApplyBorderStyle) then return end
 
 	local key, size = resolveBorder()
 	if not key or key == "none" then
-		EllesmereUI.ApplyBorderStyle(host, 0, 0, 0, 0, 1, "solid")
+		EUI.ApplyBorderStyle(host, 0, 0, 0, 0, 1, "solid")
 		host:Hide()
 		return
 	end
 
-	local colour, behind = EllesmereUI.GetBorderStyleSelectDefaults(key)
+	local colour, behind = EUI.GetBorderStyleSelectDefaults(key)
 	local level = frame:GetFrameLevel()
 	-- Shadow only reads as depth when it sits *under* the window it hugs;
 	-- everything else goes above EllesmereUI's own window border overlay.
 	host:SetFrameLevel(behind and (level > 0 and level - 1 or 0) or level + 7)
 	host:Show()
-	EllesmereUI.ApplyBorderStyle(host, size, colour.r, colour.g, colour.b, 1, key)
+	EUI.ApplyBorderStyle(host, size, colour.r, colour.g, colour.b, 1, key)
 end
 
 
@@ -628,7 +642,8 @@ end
 	tab row follows that setting, so ours reads the same keys.
 ------------------------------------------------------------------------------]]
 local function accentBar()
-	local c = EllesmereUIDB and EllesmereUIDB.blizzWinAccentBar
+	local edb = ns.HostDB()
+	local c = edb and edb.blizzWinAccentBar
 	local shown = not (c and c.enabled == false)
 	if c and c.useCustom then
 		local col = c.color
@@ -1188,9 +1203,11 @@ end
 	atlas covers. Rematch swaps icons at runtime through SetIcon (minimise
 	<-> maximise, lock <-> unlock), so the glyph follows that.
 ------------------------------------------------------------------------------]]
+-- The EllesmereUI entries are relative to the host's media folder, which a
+-- standalone module keeps under its own name: resolve through ns.HostMedia.
 local ARROW_TEX = {
-	left = "Interface\\AddOns\\EllesmereUI\\media\\icons\\eui-arrow-left.png",
-	right = "Interface\\AddOns\\EllesmereUI\\media\\icons\\eui-arrow-right.png",
+	left = "icons\\eui-arrow-left.png",
+	right = "icons\\eui-arrow-right.png",
 }
 local LOCK_TEX = {
 	lock = "Interface\\Buttons\\LockButton-Locked-Up",
@@ -1199,7 +1216,7 @@ local LOCK_TEX = {
 -- If the padlock files are not there (SetTexture reports a missing file by
 -- returning false), fall back to the one lock glyph EllesmereUI ships, and
 -- mark the locked state by tinting it with the accent.
-local LOCK_FALLBACK = "Interface\\AddOns\\EllesmereUI\\media\\icons\\eui-unlocked-small.png"
+local LOCK_FALLBACK = "icons\\eui-unlocked-small.png"
 local GLYPH_TEXT = {minimize = "\226\128\147", maximize = "+", pin = "\226\128\162", flip = "<>"}
 
 local function titleButton(btn)
@@ -1238,7 +1255,7 @@ local function titleButton(btn)
 		local icon = btn.icon
 		tex:Hide(); fs:Hide()
 		if ARROW_TEX[icon] then
-			tex:SetTexture(ARROW_TEX[icon])
+			tex:SetTexture(ns.HostMedia(ARROW_TEX[icon]))
 			tex:SetTexCoord(0, 1, 0, 1)
 			tex:SetSize(12, 12)
 			tex:Show()
@@ -1250,7 +1267,7 @@ local function titleButton(btn)
 				tex:SetTexCoord(.25, .75, .25, .75)
 				tex:SetSize(16, 16)
 			else
-				tex:SetTexture(LOCK_FALLBACK)
+				tex:SetTexture(ns.HostMedia(LOCK_FALLBACK))
 				tex:SetTexCoord(0, 1, 0, 1)
 				tex:SetSize(12, 12)
 				if icon == "lock" then tex:SetVertexColor(S.GetAccentColor()) end
@@ -2428,7 +2445,7 @@ local function scrollArrow(btn, rotation)
 		if t then t:SetAlpha(0) end
 	end
 	local tex = btn:CreateTexture(nil, "OVERLAY")
-	tex:SetTexture(ARROW_TEX.left)
+	tex:SetTexture(ns.HostMedia(ARROW_TEX.left))
 	tex:SetSize(10, 10)
 	tex:SetPoint("CENTER")
 	tex:SetRotation(rotation)
@@ -3456,8 +3473,9 @@ local function buildOptions()
 		container:Add("auto", "Follow EllesmereUI",
 			"Use the window border set in EllesmereUI's own options, including its size.")
 		container:Add("none", "None")
-		if EllesmereUI.GetBorderTextureList then
-			for _, entry in ipairs(EllesmereUI.GetBorderTextureList()) do
+		local EUI = ns.Host()
+		if EUI and EUI.GetBorderTextureList then
+			for _, entry in ipairs(EUI.GetBorderTextureList()) do
 				container:Add(entry.key, entry.name)
 			end
 		end

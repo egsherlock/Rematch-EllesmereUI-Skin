@@ -2,7 +2,7 @@
 
 Makes [Rematch](https://www.curseforge.com/wow/addons/rematch) look like the rest of your [EllesmereUI](https://www.curseforge.com/wow/addons/ellesmereui) setup. It also fixes the blank Rematch window in patch 12.1, so you don't need a separate addon for that.
 
-You need both Rematch and EllesmereUI installed. This addon contains no part of either, and if you're not running both it quietly does nothing.
+You need Rematch, and EllesmereUI: either the full suite or any one of its standalone modules, such as [Standalone Raid & Party Frames](https://www.curseforge.com/wow/addons/eui-raid-frames). This addon contains no part of either. Without EllesmereUI the skin stays off, but the 12.1 blank-window fixes below still work.
 
 The whole idea is that it follows **your** EllesmereUI setup rather than imposing a look of its own. Window colour, transparency, accent colour, font and border all come from your active profile, read fresh each time. Change any of those in EllesmereUI and Rematch changes with it, including when you switch profiles. Popular imports like atrocityUI or AES work out of the box for the same reason.
 
@@ -58,6 +58,8 @@ Nothing is hardcoded, and no profile gets special treatment.
 
 These get re-read every time something is painted, never cached. Switch profile, reopen Rematch, done. There's nothing to import or keep in sync.
 
+On a standalone module these come from that module's own copy of EllesmereUI. It has no window border or window style settings, so there "Follow EllesmereUI" means no border, and the window style is the default one.
+
 ## Options
 
 **Game Menu > Options > AddOns > Rematch EllesmereUI Skin**
@@ -82,6 +84,8 @@ The skin is built in sections, so if a future Rematch update moves something, on
 ## Compatibility
 
 Written for Rematch 5.3.1 and EllesmereUI 9.1.8. Works on EllesmereUI 8.6.6 and newer. With EllesmereUI's Blizzard Skin module running it appears in EllesmereUI's own Third-Party Addons list; without it, it works the same way on its own. Either way the look is identical and you don't need to do anything.
+
+EllesmereUI's standalone modules (Standalone Raid & Party Frames and the others) work too. Each carries its own copy of EllesmereUI, and the skin uses whichever one you run. If you have the full suite, that always comes first.
 
 ## Credits and licence
 
