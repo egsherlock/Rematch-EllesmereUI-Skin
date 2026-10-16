@@ -1,4 +1,4 @@
-## Interface: 120100, 120007
+## Interface: 120105, 120100, 120007
 ## Title: Rematch EllesmereUI Skin
 ## Notes: Reskins Rematch to match EllesmereUI. Also works around the two patch 12.1 problems that leave Rematch's journal window blank: the removed MouseIsOver API, and creature names the game hides inside instances.
 ## Version: @project-version@

@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.1
+
+- Updated for patch 12.1.5, so the game no longer lists the addon as out of
+  date. Nothing in the addon changed.
+
 ## 1.1.0
 
 - **Now works with EllesmereUI's standalone modules**, not just the full
